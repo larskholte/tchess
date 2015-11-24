@@ -1,0 +1,5 @@
+Disambiguating file chars are not displayed in game history because the saved game history includes only the nodes that were taken, and not those that could have been.
+3 position repetition results in draw
+Covering as much area as possible is nice, but towards the end, it doesn't know how to checkmate.
+More pawns are forward, higher value.
+Make it so it doesn't castle THROUGH check or into check.
