@@ -31,10 +31,10 @@ square SquareWithFileAndRankChars(char file, char rank) {
 u8 FileIdxForSquare(square s) { return s % 8; }
 u8 RankIdxForSquare(square s) { return s / 8; }
 char FileCharForSquare(square s) {
-    return 'h' - FileIdxForSquare(s);
+	return 'h' - FileIdxForSquare(s);
 }
 char RankCharForSquare(square s) {
-    return '1' + RankIdxForSquare(s);
+	return '1' + RankIdxForSquare(s);
 }
 bool HasSquareAbove(square s) { return s < 56; }
 square SquareAbove(square s) { return s + 8; }
@@ -71,9 +71,9 @@ square SquareDDL(square s) { return s - 15; }
 #define MIN(a,b) (a < b ? a : b)
 #define MAX(a,b) (a > b ? a : b)
 int StepsToCorner(square s) {
-    int ri = RankIdxForSquare(s);
-    int fi = FileIdxForSquare(s);
-    return MAX(MIN(7 - ri, ri), MIN(7 - fi, fi));
+	int ri = RankIdxForSquare(s);
+	int fi = FileIdxForSquare(s);
+	return MAX(MIN(7 - ri, ri), MIN(7 - fi, fi));
 }
 
 color OppositeColor(color c) {
@@ -84,7 +84,7 @@ bool IsPieceChar(char c) {
 	return c == pawn || c == rook || c == knight || c == bishop || c == queen || c == king;
 }
 bool IsPromotionChar(char c) {
-    return c == rook || c == knight || c == bishop || c == queen;
+	return c == rook || c == knight || c == bishop || c == queen;
 }
 char PieceCharForIdx(int i) {
 	if (i >= nopiece) return ' ';
@@ -100,33 +100,33 @@ char PieceCharForIdx(int i) {
 	throw runtime_error("Bad piece index");
 }
 int IdxForPieceChar(char pc, color c) {
-    switch (pc) {
-    case 'p': return c == white ? white_p1 : black_p1;
-    case 'R': return c == white ? white_r1 : black_r1;
-    case 'N': return c == white ? white_n1 : black_n1;
-    case 'B': return c == white ? white_b1 : black_b1;
-    case 'Q': return c == white ? white_q  : black_q;
-    case 'K': return c == white ? white_k  : black_k;
-    default: throw runtime_error("bad piece char");
-    }
+	switch (pc) {
+	case 'p': return c == white ? white_p1 : black_p1;
+	case 'R': return c == white ? white_r1 : black_r1;
+	case 'N': return c == white ? white_n1 : black_n1;
+	case 'B': return c == white ? white_b1 : black_b1;
+	case 'Q': return c == white ? white_q  : black_q;
+	case 'K': return c == white ? white_k  : black_k;
+	default: throw runtime_error("bad piece char");
+	}
 }
 char PromotionCharForIdx(int idx) {
-    switch (idx) {
-    case 0: return 'N';
-    case 1: return 'B';
-    case 2: return 'R';
-    case 3: return 'Q';
-    default: throw runtime_error("invalid promotion index");
-    }
+	switch (idx) {
+	case 0: return 'N';
+	case 1: return 'B';
+	case 2: return 'R';
+	case 3: return 'Q';
+	default: throw runtime_error("invalid promotion index");
+	}
 }
 int IdxForPromotionChar(char pc) {
-    switch (pc) {
-    case 'N': return 0;
-    case 'B': return 1;
-    case 'R': return 2;
-    case 'Q': return 3;
-    default: throw runtime_error("invalid promotion char");
-    }
+	switch (pc) {
+	case 'N': return 0;
+	case 'B': return 1;
+	case 'R': return 2;
+	case 'Q': return 3;
+	default: throw runtime_error("invalid promotion char");
+	}
 }
 bool IsFileChar(char c) {
 	return c >= 'a' && c <= 'h';

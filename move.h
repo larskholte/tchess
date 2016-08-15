@@ -20,7 +20,7 @@ public:
 struct Move {
 	Move();
 	Move(const char*);
-    Move(const string&);
+	Move(const string&);
 	char piecechar;
 	char file;
 	char rank;
@@ -30,10 +30,10 @@ struct Move {
 #define smCastleQueenside 2
 #define smOfferDraw 3
 	u8 special;
-    char promotionchar;
-    bool check;
+	char promotionchar;
+	bool check;
 	friend ostream& operator<<(ostream&,const Move&);
-    operator string() const;
+	operator string() const;
 };
 ostream& operator<<(ostream&,const Move&);
 

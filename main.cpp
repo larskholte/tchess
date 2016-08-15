@@ -83,6 +83,9 @@ int main(int argc, char* argv[]) {
 		throw runtime_error("expected another command-line argument");
 	}
 	int value = 0;
+	//
+	// Main program loop
+	//
 	while (1) {
 		Move m;
 		string resp;

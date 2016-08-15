@@ -35,38 +35,38 @@ class Node {
 public:
 	Node(int depth); // Initial node
 	~Node();
-    const Node *parent() const;
+	const Node *parent() const;
 	void grow(int depth);
 	bool grown() const;
 	int evaluate();
 	int value() const;
 	int intrinsicValue() const;
 	void predict(float priority);
-    float priority() const;
+	float priority() const;
 	void heal();
 	int numChildren() const;
 	color getColor() const;
-    const Node *inheritor() const;
-    bool whiteCanCastleKingside() const;
-    bool whiteCanCastleQueenside() const;
-    bool blackCanCastleKingside() const;
-    bool blackCanCastleQueenside() const;
-    int movesWithoutPawnMove() const;
-    int terminationStatus() const;
-    Move moveToNode(const Node*) const;
-    Move moveToOnlyChild() const;
-    const Node *onlyChild() const;
+	const Node *inheritor() const;
+	bool whiteCanCastleKingside() const;
+	bool whiteCanCastleQueenside() const;
+	bool blackCanCastleKingside() const;
+	bool blackCanCastleQueenside() const;
+	int movesWithoutPawnMove() const;
+	int terminationStatus() const;
+	Move moveToNode(const Node*) const;
+	Move moveToOnlyChild() const;
+	const Node *onlyChild() const;
 	Node* applyMove(Move);
-    Node *playFor(color);
+	Node *playFor(color);
 	friend ostream& operator<<(ostream&,const Node&);
-    void printWithChildren(ostream&,int depth) const;
-    void deleteChildrenExcept(Node*);
-    void printGame(ostream&) const;
+	void printWithChildren(ostream&,int depth) const;
+	void deleteChildrenExcept(Node*);
+	void printGame(ostream&) const;
 private:
-    typedef u16 SpecialType;
+	typedef u16 SpecialType;
 	Node(Node *parent, const Position& p, color turn, int depth,SpecialType);
-    void addPosition(const Position&,int depth,SpecialType);
-    void addAllMoves(piece,square*,int depth,SpecialType);
+	void addPosition(const Position&,int depth,SpecialType);
+	void addAllMoves(piece,square*,int depth,SpecialType);
 	void pawnMoves(square,square*);
 	void rookMoves(square,square*);
 	void knightMoves(square,square*);
@@ -81,8 +81,8 @@ private:
 	vector<Node*> _children;
 	float _priority;
 	SpecialType _special;
-    SpecialType nextSpecialWithMovesWithoutPawnMove(int);
-    SpecialType nextSpecial();
+	SpecialType nextSpecialWithMovesWithoutPawnMove(int);
+	SpecialType nextSpecial();
 #define GrownMask 0x10
 #define WhiteCanCastleKingsideMask 0x01
 #define WhiteCanCastleQueensideMask 0x02
