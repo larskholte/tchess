@@ -146,6 +146,12 @@ int main(int argc, char* argv[]) {
 							continue;
 						}
 					}
+					if (resp == "help") {
+						cout << "Enter a move in algebraic notation or enter one of the following commands:\n";
+						cout << "\tresign - resigns\n";
+						cout << "\tdraw - offers a draw\n";
+						continue;
+					}
 					try {
 						m = Move(resp.c_str());
 					} catch (BadMoveDesc &e) {
