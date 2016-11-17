@@ -431,7 +431,7 @@ void Node::printGame(ostream &out) const {
 		} else if (i == 16) {
 			out << _pos.stringForFileLabels();
 		} else {
-			out << "									   ";
+            out << "                                       ";
 		}
 		if (node != this) {
 			out << "   " << to_string(moveno) << '.' << string(3-to_string(moveno).length(),' ');

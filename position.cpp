@@ -9,7 +9,6 @@
 #include <sstream>
 
 #include "config.h"
-#include "util.h"
 
 using namespace std;
 
