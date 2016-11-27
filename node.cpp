@@ -415,10 +415,10 @@ void Node::printGame(ostream &out) const {
 	const Node *node = this;
 	while (node->_parent) node = node->_parent;
 	out << _pos.stringForFileLabels();
-	if (node != this) out << "	   White	 Black\n";
+	if (node != this) out << "       White     Black\n";
 	else out << '\n';
 	out << _pos.stringForTopBorder();
-	if (node != this) out << "	   --------- ---------\n";
+	if (node != this) out << "       --------- ---------\n";
 	else out << '\n';
 	int moveno = 1;
 	for (int i = 0; i < 17 || node != this; i++) {
