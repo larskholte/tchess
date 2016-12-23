@@ -3,3 +3,4 @@
 [ ] Towards the end, it doesn't know how to checkmate.
 [ ] More pawns forward should lead to a higher intrinsic node value.
 [ ] Make it so it doesn't castle THROUGH check or into check.
+[ ] en passant
