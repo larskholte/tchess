@@ -9,6 +9,7 @@
 #include <atomic>
 #include <iostream>
 #include <string>
+#include <cstring>
 #include <stdexcept>
 #include <queue>
 
@@ -82,7 +83,6 @@ int main(int argc, char* argv[]) {
 	if (argstate != 0) {
 		throw runtime_error("expected another command-line argument");
 	}
-	int value = 0;
 	//
 	// Main program loop
 	//
@@ -126,7 +126,7 @@ int main(int argc, char* argv[]) {
 					}
 				}
 				// Re-evaluate entire tree
-				value = current->evaluate();
+				current->evaluate();
 				// Make a move
 				current = current->playFor(current->getColor());
 			} else {
@@ -173,8 +173,6 @@ int main(int argc, char* argv[]) {
 					}
 				}
 			}
-			//cout << "Inherited value: " << value << '\n';
-			//cout << "Intrinsic value: " << current->intrinsicValue() << '\n';
 		}
 	}
 	} catch (exception &e) {
