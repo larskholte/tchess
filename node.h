@@ -13,6 +13,7 @@
 #include <atomic>
 #include <iostream>
 #include <stdexcept>
+#include <list>
 
 using namespace std;
 
@@ -57,11 +58,11 @@ public:
 	Move moveToOnlyChild() const;
 	const Node *onlyChild() const;
 	Node* applyMove(Move);
-	Node *playFor(color);
+	Node *playFor(color, Move*);
 	friend ostream& operator<<(ostream&,const Node&);
 	void printWithChildren(ostream&,int depth) const;
 	void deleteChildrenExcept(Node*);
-	void printGame(ostream&) const;
+	void printGame(ostream&,std::list<Move>&) const;
 private:
 	typedef u16 SpecialType;
 	Node(Node *parent, const Position& p, color turn, int depth,SpecialType);

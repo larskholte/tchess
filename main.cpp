@@ -12,12 +12,14 @@
 #include <cstring>
 #include <stdexcept>
 #include <queue>
+#include <list>
 
 using namespace std;
 
 atomic_size_t nodeCount; // Total number of nodes
 Node start(StandardDepth); // Initial position
 Node *current = &start; // Current position
+std::list<Move> moves;
 
 string GetResponse(const string &msg) {
 	cout << msg;
@@ -54,7 +56,7 @@ void PrintGame() {
 	// Clear the screen and move cursor to top left
 	cout << "\033[2J\033[H";
 	Frame("                            tchess                              ");
-	current->printGame(cout);
+	current->printGame(cout,moves);
 	cout << '\n';
 }
 int main(int argc, char* argv[]) {
@@ -128,7 +130,9 @@ int main(int argc, char* argv[]) {
 				// Re-evaluate entire tree
 				current->evaluate();
 				// Make a move
-				current = current->playFor(current->getColor());
+				Move m;
+				current = current->playFor(current->getColor(),&m);
+				moves.push_back(m);
 			} else {
 				// Get user's move
 				while (1) {
@@ -161,6 +165,8 @@ int main(int argc, char* argv[]) {
 					try {
 						// Apply move
 						Node *inheritor = current->applyMove(m);
+						Move m = current->moveToNode(inheritor);
+						moves.push_back(m);
 						current->deleteChildrenExcept(inheritor);
 						current = inheritor;
 						break;

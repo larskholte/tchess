@@ -1,5 +1,6 @@
-[ ] Disambiguating file chars are not displayed in game history because the saved game history includes only the nodes that were chosen, and not those that could have been.
 [ ] 3 position repetition should result in draw
 [ ] Towards the end, it doesn't know how to checkmate.
 [ ] More pawns forward should lead to a higher intrinsic node value.
 [ ] Make it so it doesn't castle THROUGH check or into check.
+[ ] Why doesn't it move the knights out very much?
+

@@ -411,7 +411,7 @@ void Node::deleteChildrenExcept(Node *inheritor) {
 	_children.clear();
 	_children.push_back(inheritor);
 }
-void Node::printGame(ostream &out) const {
+void Node::printGame(ostream &out,std::list<Move> &moves) const {
 	const Node *node = this;
 	while (node->_parent) node = node->_parent;
 	out << _pos.stringForFileLabels();
@@ -421,7 +421,8 @@ void Node::printGame(ostream &out) const {
 	if (node != this) out << "       --------- ---------\n";
 	else out << '\n';
 	int moveno = 1;
-	for (int i = 0; i < 17 || node != this; i++) {
+	std::list<Move>::iterator currentMove = moves.begin();
+	for (int i = 0; i < 17; i++) {
 		if (i % 2 == 0 && i < 15) {
 			out << _pos.stringForRank(8-i/2);
 		} else if (i/2 < 8 - 1 && i < 15) {
@@ -433,17 +434,18 @@ void Node::printGame(ostream &out) const {
 		} else {
             out << "                                       ";
 		}
-		if (node != this) {
+		if (currentMove != moves.end()) {
+			// Print move number
 			out << "   " << to_string(moveno) << '.' << string(3-to_string(moveno).length(),' ');
-			Move m = node->moveToOnlyChild();
+			Move m = *currentMove;
+			currentMove++;
 			string ms = string(m);
 			out << ms;
 			out << string(10-ms.length(),' ');
-			node = node->onlyChild();
-			if (node != this) {
-				m = node->moveToOnlyChild();
+			if (currentMove != moves.end()) {
+				m = *currentMove;
+				currentMove++;
 				out << m;
-				node = node->onlyChild();
 			}
 			moveno++;
 		}
@@ -774,7 +776,7 @@ Node* Node::applyMove(Move m) {
 	//deleteChildrenExcept(inheritor);
 	return inheritor;
 }
-Node* Node::playFor(color c) {
+Node* Node::playFor(color c, Move *move) {
 	if (_children.size() == 0) {
 		throw runtime_error("can't play terminal node");
 	}
@@ -790,6 +792,7 @@ Node* Node::playFor(color c) {
 	} else {
 		inheritor = min;
 	}
+	*move = moveToNode(inheritor);
 	deleteChildrenExcept(inheritor);
 	return inheritor;
 }
