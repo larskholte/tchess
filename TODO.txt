@@ -3,4 +3,5 @@
 [ ] More pawns forward should lead to a higher intrinsic node value.
 [ ] Make it so it doesn't castle THROUGH check or into check.
 [ ] Why doesn't it move the knights out very much?
-
+[ ] en passant
+[ ] scrolling move history for long games
