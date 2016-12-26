@@ -422,7 +422,12 @@ void Node::printGame(ostream &out,std::list<Move> &moves) const {
 	else out << '\n';
 	int moveno = 1;
 	std::list<Move>::iterator currentMove = moves.begin();
+	for (size_t i = 34; i < moves.size(); i += 2) {
+		currentMove++; currentMove++;
+		moveno++;
+	}
 	for (int i = 0; i < 17; i++) {
+		// Print the board
 		if (i % 2 == 0 && i < 15) {
 			out << _pos.stringForRank(8-i/2);
 		} else if (i/2 < 8 - 1 && i < 15) {
