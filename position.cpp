@@ -432,6 +432,7 @@ void Position::pcp(int *pres, int *cov, int *prot) const {
 	*prot = wprot - bprot;
 }
 void Position::pcpFor(color c, int *pres, int *cov, int *prot) const {
+	*pres = *cov = *prot = 0;
 	color oc = OppositeColor(c);
 	piece p = c*16;
 	square s;
