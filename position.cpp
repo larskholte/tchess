@@ -61,11 +61,11 @@ int Position::value() const {
 	case MSWhiteR: case MSWhiteQ: return WhiteMate + 3 - StepsToCorner(squareForPiece(black_k));
 	case MSBlackR: case MSBlackQ: return BlackMate - 3 + StepsToCorner(squareForPiece(white_k));
 	}
-	int val = numForPieceChar('p',white)*PawnWeight - numForPieceChar('p',black)*PawnWeight +
-			numForPieceChar('N',white)*KnightWeight - numForPieceChar('N',black)*KnightWeight +
-			numForPieceChar('B',white)*BishopWeight - numForPieceChar('B',black)*BishopWeight +
-			numForPieceChar('R',white)*RookWeight - numForPieceChar('R',black)*RookWeight +
-			numForPieceChar('Q',white)*QueenWeight - numForPieceChar('Q',black)*QueenWeight;
+	int val = numForPieceChar('p',white)*PawnWeight - numForPieceChar('p',black)*PawnWeight
+			+ numForPieceChar('N',white)*KnightWeight - numForPieceChar('N',black)*KnightWeight
+			+ numForPieceChar('B',white)*BishopWeight - numForPieceChar('B',black)*BishopWeight
+			+ numForPieceChar('R',white)*RookWeight - numForPieceChar('R',black)*RookWeight
+			+ numForPieceChar('Q',white)*QueenWeight - numForPieceChar('Q',black)*QueenWeight;
 	val *= PiecesWeight;
 	int pres, cov, prot;
 	pcp(&pres,&cov,&prot);
@@ -425,8 +425,10 @@ ms Position::matingSequence() const {
 void Position::pcp(int *pres, int *cov, int *prot) const {
 	int wpres, wcov, wprot;
 	pcpFor(white,&wpres,&wcov,&wprot);
+	cout << "white pcp: " << wpres << ' ' << wcov << ' ' << wprot << '\n';
 	int bpres, bcov, bprot;
 	pcpFor(black,&bpres,&bcov,&bprot);
+	cout << "black pcp: " << bpres << ' ' << bcov << ' ' << bprot << '\n';
 	*pres = wpres - bpres;
 	*cov = wcov - bcov;
 	*prot = wprot - bprot;

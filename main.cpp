@@ -13,6 +13,7 @@
 #include <stdexcept>
 #include <queue>
 #include <list>
+#include <cstdio>
 
 using namespace std;
 
@@ -52,12 +53,23 @@ void Frame(const string &msg, char framechar='-') {
 	cout << " \n\n";
 }
 
+int debug = 0;
 void PrintGame() {
 	// Clear the screen and move cursor to top left
 	cout << "\033[2J\033[H";
 	Frame("                            tchess                              ");
 	current->printGame(cout,moves);
+	if (debug) {
+		cout << "intrinsic value: " << current->intrinsicValue() << "\n";
+		cout << "inherited value: " << current->value() << "\n";
+	}
 	cout << '\n';
+}
+void PrintHelp(void) {
+	cout << "Usage: tchess [--white] [--black] [--debug]\n";
+	cout << "   --white : User plays for white (default)\n";
+	cout << "   --black : User plays for black\n";
+	cout << "   --debug : Debug information is printed\n";
 }
 int main(int argc, char* argv[]) {
 	color playfor = black;
@@ -72,6 +84,11 @@ int main(int argc, char* argv[]) {
 				playfor = black;
 			} else if (strcmp(arg,"--black") == 0) {
 				playfor = white;
+			} else if (strcmp(arg,"--debug") == 0) {
+				debug = 1;
+			} else if (strcmp(arg,"--help") == 0) {
+				PrintHelp();
+				return 0;
 			} else {
 				throw runtime_error("unrecognized command-line argument");
 			}
