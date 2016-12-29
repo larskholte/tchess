@@ -425,10 +425,8 @@ ms Position::matingSequence() const {
 void Position::pcp(int *pres, int *cov, int *prot) const {
 	int wpres, wcov, wprot;
 	pcpFor(white,&wpres,&wcov,&wprot);
-	cout << "white pcp: " << wpres << ' ' << wcov << ' ' << wprot << '\n';
 	int bpres, bcov, bprot;
 	pcpFor(black,&bpres,&bcov,&bprot);
-	cout << "black pcp: " << bpres << ' ' << bcov << ' ' << bprot << '\n';
 	*pres = wpres - bpres;
 	*cov = wcov - bcov;
 	*prot = wprot - bprot;
@@ -498,7 +496,8 @@ void Position::pcpFor(color c, int *pres, int *cov, int *prot) const {
 		bishopPcp(c,squareForPiece(p),pres,cov,prot);
 	}
 	p++;
-	// TODO: king pressure
+	// king pressure
+	kingPcp(c,squareForPiece(p),pres,cov,prot);
 }
 void Position::rookPcp(color c, square rs, int *pres, int *cov, int *prot) const {
 	color oc = OppositeColor(c);
@@ -554,12 +553,14 @@ void Position::rookPcp(color c, square rs, int *pres, int *cov, int *prot) const
 void Position::bishopPcp(color c, square bs, int *pres, int *cov, int *prot) const {
 	color oc = OppositeColor(c);
 	square s = bs;
+	color sc;
 	while (HasSquareAboveRight(s)) {
 		s = SquareAboveRight(s);
-		if (squareColor(s) == oc) {
+		sc = squareColor(s);
+		if (sc == oc) {
 			(*pres)++;
 			break;
-		} else if (squareColor(s) == c) {
+		} else if (sc == c) {
 			(*prot)++;
 			break;
 		}
@@ -568,10 +569,11 @@ void Position::bishopPcp(color c, square bs, int *pres, int *cov, int *prot) con
 	s = bs;
 	while (HasSquareBelowRight(s)) {
 		s = SquareBelowRight(s);
-		if (squareColor(s) == oc) {
+		sc = squareColor(s);
+		if (sc == oc) {
 			(*pres)++;
 			break;
-		} else if (squareColor(s) == c) {
+		} else if (sc == c) {
 			(*prot)++;
 			break;
 		}
@@ -580,10 +582,11 @@ void Position::bishopPcp(color c, square bs, int *pres, int *cov, int *prot) con
 	s = bs;
 	while (HasSquareAboveLeft(s)) {
 		s = SquareAboveLeft(s);
-		if (squareColor(s) == oc) {
+		sc = squareColor(s);
+		if (sc == oc) {
 			(*pres)++;
 			break;
-		} else if (squareColor(s) == c) {
+		} else if (sc == c) {
 			(*prot)++;
 			break;
 		}
@@ -592,22 +595,116 @@ void Position::bishopPcp(color c, square bs, int *pres, int *cov, int *prot) con
 	s = bs;
 	while (HasSquareBelowLeft(s)) {
 		s = SquareBelowLeft(s);
-		if (squareColor(s) == oc) {
+		sc = squareColor(s);
+		if (sc == oc) {
 			(*pres)++;
 			break;
-		} else if (squareColor(s) == c) {
+		} else if (sc == c) {
 			(*prot)++;
 			break;
 		}
 		(*cov)++;
 	}
 }
+void Position::kingPcp(color c, square ks, int *pres, int *cov, int *prot) const {
+	color oc = OppositeColor(c);
+	square s;
+	color sc;
+	if (HasSquareAbove(ks)) {
+		s = SquareAbove(ks);
+		sc = squareColor(s);
+		if (sc == oc) {
+			(*pres)++;
+		} else if (sc == c) {
+			(*prot)++;
+		} else {
+			(*cov)++;
+		}
+	}
+	if (HasSquareAboveRight(ks)) {
+		s = SquareAboveRight(ks);
+		sc = squareColor(s);
+		if (sc == oc) {
+			(*pres)++;
+		} else if (sc == c) {
+			(*prot)++;
+		} else {
+			(*cov)++;
+		}
+	}
+	if (HasSquareRight(ks)) {
+		s = SquareRight(ks);
+		sc = squareColor(s);
+		if (sc == oc) {
+			(*pres)++;
+		} else if (sc == c) {
+			(*prot)++;
+		} else {
+			(*cov)++;
+		}
+	}
+	if (HasSquareBelowRight(ks)) {
+		s = SquareBelowRight(ks);
+		sc = squareColor(s);
+		if (sc == oc) {
+			(*pres)++;
+		} else if (sc == c) {
+			(*prot)++;
+		} else {
+			(*cov)++;
+		}
+	}
+	if (HasSquareBelow(ks)) {
+		s = SquareBelow(ks);
+		sc = squareColor(s);
+		if (sc == oc) {
+			(*pres)++;
+		} else if (sc == c) {
+			(*prot)++;
+		} else {
+			(*cov)++;
+		}
+	}
+	if (HasSquareBelowLeft(ks)) {
+		s = SquareBelowLeft(ks);
+		sc = squareColor(s);
+		if (sc == oc) {
+			(*pres)++;
+		} else if (sc == c) {
+			(*prot)++;
+		} else {
+			(*cov)++;
+		}
+	}
+	if (HasSquareLeft(ks)) {
+		s = SquareLeft(ks);
+		sc = squareColor(s);
+		if (sc == oc) {
+			(*pres)++;
+		} else if (sc == c) {
+			(*prot)++;
+		} else {
+			(*cov)++;
+		}
+	}
+	if (HasSquareAboveLeft(ks)) {
+		s = SquareAboveLeft(ks);
+		sc = squareColor(s);
+		if (sc == oc) {
+			(*pres)++;
+		} else if (sc == c) {
+			(*prot)++;
+		} else {
+			(*cov)++;
+		}
+	}
+}
 void Position::knightPcp(color c, square ns, int *pres, int *cov, int *prot) const {
 	color oc = OppositeColor(c);
-	square s = ns;
+	square s;
 	color sc;
-	if (HasSquareUUR(s)) {
-		s = SquareUUR(s);
+	if (HasSquareUUR(ns)) {
+		s = SquareUUR(ns);
 		sc = squareColor(s);
 		if (sc == oc) {
 			(*pres)++;
@@ -617,8 +714,8 @@ void Position::knightPcp(color c, square ns, int *pres, int *cov, int *prot) con
 			(*cov)++;
 		}
 	}
-	if (HasSquareUUL(s)) {
-		s = SquareUUL(s);
+	if (HasSquareUUL(ns)) {
+		s = SquareUUL(ns);
 		sc = squareColor(s);
 		if (sc == oc) {
 			(*pres)++;
@@ -628,8 +725,8 @@ void Position::knightPcp(color c, square ns, int *pres, int *cov, int *prot) con
 			(*cov)++;
 		}
 	}
-	if (HasSquareDDR(s)) {
-		s = SquareDDR(s);
+	if (HasSquareDDR(ns)) {
+		s = SquareDDR(ns);
 		sc = squareColor(s);
 		if (sc == oc) {
 			(*pres)++;
@@ -639,8 +736,8 @@ void Position::knightPcp(color c, square ns, int *pres, int *cov, int *prot) con
 			(*cov)++;
 		}
 	}
-	if (HasSquareDDL(s)) {
-		s = SquareDDL(s);
+	if (HasSquareDDL(ns)) {
+		s = SquareDDL(ns);
 		sc = squareColor(s);
 		if (sc == oc) {
 			(*pres)++;
@@ -650,8 +747,8 @@ void Position::knightPcp(color c, square ns, int *pres, int *cov, int *prot) con
 			(*cov)++;
 		}
 	}
-	if (HasSquareRRU(s)) {
-		s = SquareRRU(s);
+	if (HasSquareRRU(ns)) {
+		s = SquareRRU(ns);
 		sc = squareColor(s);
 		if (sc == oc) {
 			(*pres)++;
@@ -661,8 +758,8 @@ void Position::knightPcp(color c, square ns, int *pres, int *cov, int *prot) con
 			(*cov)++;
 		}
 	}
-	if (HasSquareRRD(s)) {
-		s = SquareRRD(s);
+	if (HasSquareRRD(ns)) {
+		s = SquareRRD(ns);
 		sc = squareColor(s);
 		if (sc == oc) {
 			(*pres)++;
@@ -672,8 +769,8 @@ void Position::knightPcp(color c, square ns, int *pres, int *cov, int *prot) con
 			(*cov)++;
 		}
 	}
-	if (HasSquareLLU(s)) {
-		s = SquareLLU(s);
+	if (HasSquareLLU(ns)) {
+		s = SquareLLU(ns);
 		sc = squareColor(s);
 		if (sc == oc) {
 			(*pres)++;
@@ -683,8 +780,8 @@ void Position::knightPcp(color c, square ns, int *pres, int *cov, int *prot) con
 			(*cov)++;
 		}
 	}
-	if (HasSquareLLD(s)) {
-		s = SquareLLD(s);
+	if (HasSquareLLD(ns)) {
+		s = SquareLLD(ns);
 		sc = squareColor(s);
 		if (sc == oc) {
 			(*pres)++;

@@ -51,6 +51,7 @@ private:
 	void rookPcp(color,square rs,int *pres, int *cov, int *prot) const;
 	void bishopPcp(color,square rs,int *pres, int *cov, int *prot) const;
 	void knightPcp(color c, square ns, int *pres, int *cov, int *prot) const;
+	void kingPcp(color c, square ks, int *pres, int *cov, int *prot) const;
 	square _positions[32];
 	u64 _boardmasks[2];
 	u32 _promotions;
