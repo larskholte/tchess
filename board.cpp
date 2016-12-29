@@ -36,9 +36,9 @@ char FileCharForSquare(square s) {
 char RankCharForSquare(square s) {
 	return '1' + RankIdxForSquare(s);
 }
-bool HasSquareAbove(square s) { return s < 56; }
+bool HasSquareAbove(square s) { return s < sq_h8; }
 square SquareAbove(square s) { return s + 8; }
-bool HasSquareBelow(square s) { return s > 7; }
+bool HasSquareBelow(square s) { return s > sq_a1; }
 square SquareBelow(square s) { return s - 8; }
 bool HasSquareRight(square s) { return (s % 8) > 0; }
 square SquareRight(square s) { return s - 1; }
@@ -52,21 +52,21 @@ bool HasSquareBelowRight(square s) { return s > sq_a1 && (s % 8) > 0; }
 square SquareBelowRight(square s) { return s - 9; }
 bool HasSquareBelowLeft(square s) { return s > sq_a1 && (s % 8) < 7; }
 square SquareBelowLeft(square s) { return s - 7; }
-bool HasSquareUUR(square s) { return s < sq_h7 && s % 8 > 0; }
+bool HasSquareUUR(square s) { return s < sq_h7 && (s % 8) > 0; }
 square SquareUUR(square s) { return s + 15; }
-bool HasSquareUUL(square s) { return s < sq_a6 && s % 8 < 7; }
+bool HasSquareUUL(square s) { return s < sq_a6 && (s % 8) < 7; }
 square SquareUUL(square s) { return s + 17; }
-bool HasSquareRRU(square s) { return s % 8 > 1 && s < sq_h8; }
+bool HasSquareRRU(square s) { return (s % 8) > 1 && s < sq_h8; }
 square SquareRRU(square s) { return s + 6; }
-bool HasSquareRRD(square s) { return s % 8 > 1 && s > sq_a1; }
+bool HasSquareRRD(square s) { return (s % 8) > 1 && s > sq_a1; }
 square SquareRRD(square s) { return s - 10; }
-bool HasSquareLLU(square s) { return s % 8 < 6 && s < sq_h8; }
+bool HasSquareLLU(square s) { return (s % 8) < 6 && s < sq_h8; }
 square SquareLLU(square s) { return s + 10; }
-bool HasSquareLLD(square s) { return s % 8 < 6 && s > sq_a1; }
+bool HasSquareLLD(square s) { return (s % 8) < 6 && s > sq_a1; }
 square SquareLLD(square s) { return s - 6; }
-bool HasSquareDDR(square s) { return s > sq_h3 && s % 8 > 0; }
+bool HasSquareDDR(square s) { return s > sq_h3 && (s % 8) > 0; }
 square SquareDDR(square s) { return s - 17; }
-bool HasSquareDDL(square s) { return s > sq_a2 && s % 8 < 7; }
+bool HasSquareDDL(square s) { return s > sq_a2 && (s % 8) < 7; }
 square SquareDDL(square s) { return s - 15; }
 #define MIN(a,b) (a < b ? a : b)
 #define MAX(a,b) (a > b ? a : b)
