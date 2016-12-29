@@ -346,10 +346,12 @@ Move Position::moveToPositionForColor(const Position &pos, color c) const {
 		else if ((ourChanges & 0xb8) == 0xb8 && c == white) m.special = smCastleQueenside;
 		else if ((ourChanges & 0x0f00000000000000) == 0x0f00000000000000 && c == black) m.special = smCastleKingside;
 		else if ((ourChanges & 0xb800000000000000) == 0xb800000000000000 && c == black) m.special = smCastleQueenside;
-		else throw runtime_error("no move to result in position");
+		else throw runtime_error("no move to result in position. vacancies: 2");
 		return m;
 	} else if (CountBitsU64(ourVacancies) != 1) {
-		throw runtime_error("no move to result in position");
+		std::stringstream ss;
+		ss << "no move to result in position. vacancies: " << CountBitsU64(ourVacancies);
+		throw runtime_error(ss.str().c_str());
 	}
 	u64 dest = ourChanges & pos._boardmasks[c];
 	Move m;
