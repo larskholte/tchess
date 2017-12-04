@@ -44,10 +44,10 @@ public:
 	static string stringForRankSeparator();
 	string stringForRank(int) const;
 	ms matingSequence() const;
-private:
-	// Pressure, coverage, protection
 	void pcp(int *pres, int *cov, int *prot) const;
 	void pcpFor(color,int *pres, int *cov, int *prot) const;
+private:
+	// Pressure, coverage, protection
 	void rookPcp(color,square rs,int *pres, int *cov, int *prot) const;
 	void bishopPcp(color,square rs,int *pres, int *cov, int *prot) const;
 	void knightPcp(color c, square ns, int *pres, int *cov, int *prot) const;

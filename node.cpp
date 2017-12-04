@@ -404,6 +404,9 @@ const Node* Node::onlyChild() const {
 	if (_children.size() != 1) throw runtime_error("number of children not 1");
 	return _children[0];
 }
+const Position& Node::pos() const {
+	return _pos;
+}
 void Node::deleteChildrenExcept(Node *inheritor) {
 	for (size_t i = 0; i < _children.size(); i++) {
 		if (_children[i] != inheritor) delete _children[i];

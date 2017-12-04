@@ -8,6 +8,7 @@
 
 #include <atomic>
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <cstring>
 #include <stdexcept>
@@ -21,6 +22,7 @@ atomic_size_t nodeCount; // Total number of nodes
 Node start(StandardDepth); // Initial position
 Node *current = &start; // Current position
 std::list<Move> moves;
+std::string logfilename = "tchess.log";
 
 string GetResponse(const string &msg) {
 	cout << msg;
@@ -60,6 +62,11 @@ void PrintGame() {
 	Frame("                            tchess                              ");
 	current->printGame(cout,moves);
 	if (debug) {
+		int pres, cov, prot;
+		current->pos().pcpFor(white,&pres,&cov,&prot);
+		cout << "white ppcp: " << pres << ' ' << cov << ' ' << prot << '\n';
+		current->pos().pcpFor(black,&pres,&cov,&prot);
+		cout << "black ppcp: " << pres << ' ' << cov << ' ' << prot << '\n';
 		cout << "intrinsic value: " << current->intrinsicValue() << "\n";
 		cout << "inherited value: " << current->value() << "\n";
 	}
@@ -69,6 +76,7 @@ void PrintHelp(void) {
 	cout << "Usage: tchess [--white] [--black] [--debug]\n";
 	cout << "   --white : User plays for white (default)\n";
 	cout << "   --black : User plays for black\n";
+	cout << "   --log   : Specify game log file (default: tchess.log)\n";
 	cout << "   --debug : Debug information is printed\n";
 }
 int main(int argc, char* argv[]) {
@@ -89,11 +97,15 @@ int main(int argc, char* argv[]) {
 			} else if (strcmp(arg,"--help") == 0) {
 				PrintHelp();
 				return 0;
+			} else if (strcmp(arg,"--log") == 0) {
+				argstate = 1;
 			} else {
 				throw runtime_error("unrecognized command-line argument");
 			}
 			break;
 		case 1:
+			logfilename = arg;
+			argstate = 0;
 			break;
 		default:
 			throw runtime_error("bad arg state");
@@ -102,6 +114,11 @@ int main(int argc, char* argv[]) {
 	if (argstate != 0) {
 		throw runtime_error("expected another command-line argument");
 	}
+	// TODO: check if exists
+	std::ofstream logfile;
+	logfile.open(logfilename,std::ios::out);
+	logfile << "user: " << (playfor == white ? "black" : "white") << '\n';
+	logfile.close();
 	//
 	// Main program loop
 	//

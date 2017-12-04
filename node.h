@@ -57,6 +57,7 @@ public:
 	Move moveToNode(const Node*) const;
 	Move moveToOnlyChild() const;
 	const Node *onlyChild() const;
+	const Position& pos() const;
 	Node* applyMove(Move);
 	Node *playFor(color, Move*);
 	friend ostream& operator<<(ostream&,const Node&);

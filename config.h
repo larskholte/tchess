@@ -23,9 +23,9 @@
 #define RookWeight 5
 #define QueenWeight 9
 
-#define PiecesWeight 16
-#define PressureWeight 1
-#define CoverageWeight 1
-#define ProtectionWeight 0
+#define PiecesWeight 20
+#define PressureWeight 2
+#define CoverageWeight 2
+#define ProtectionWeight 1
 
 #endif // config_h
