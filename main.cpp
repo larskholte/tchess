@@ -118,7 +118,6 @@ int main(int argc, char* argv[]) {
 	std::ofstream logfile;
 	logfile.open(logfilename,std::ios::out);
 	logfile << "user: " << (playfor == white ? "black" : "white") << '\n';
-	logfile.close();
 	//
 	// Main program loop
 	//
@@ -134,12 +133,18 @@ int main(int argc, char* argv[]) {
 			case TSNotTerminal: break;
 			case TSWhiteMate:
 				Frame("Checkmate. White wins");
+				logfile << "\nmate\n";
+				logfile.close();
 				return 0;
 			case TSBlackMate:
 				Frame("Checkmate. Black wins");
+				logfile << "mate\n";
+				logfile.close();
 				return 0;
 			case TSStaleMate:
 				Frame("Stalemate");
+				logfile << "\nstalemate\n";
+				logfile.close();
 				return 0;
 			}
 			if (current->getColor() == playfor) {
@@ -167,17 +172,27 @@ int main(int argc, char* argv[]) {
 				Move m;
 				current = current->playFor(current->getColor(),&m);
 				moves.push_back(m);
+				logfile << m;
+				if (playfor == white) {
+					logfile << " ";
+				} else {
+					logfile << endl;
+				}
 			} else {
 				// Get user's move
 				while (1) {
 					resp = GetResponse(current->getColor() == white ? "White move: " : "Black move: ");
 					if (cin.eof() || resp == "resign") {
 						Frame(current->getColor() == white ? "White resigned" : "Black resigned");
+						logfile << "resign\n";
+						logfile.close();
 						return 0;
 					}
 					if (resp == "draw") {
 						if (current->value() >= DrawLevel) {
 							Frame("Draw accepted");
+							logfile << "draw\n";
+							logfile.close();
 							return 0;
 						} else {
 							Frame("Draw not accepted");
@@ -201,6 +216,12 @@ int main(int argc, char* argv[]) {
 						Node *inheritor = current->applyMove(m);
 						Move m = current->moveToNode(inheritor);
 						moves.push_back(m);
+						logfile << m;
+						if (playfor == black) {
+							logfile << " ";
+						} else {
+							logfile << endl;
+						}
 						current->deleteChildrenExcept(inheritor);
 						current = inheritor;
 						break;
