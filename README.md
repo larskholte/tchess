@@ -32,7 +32,7 @@ White move:
 Need I say more?
 
 ## Installation
-Simply `make` in the project directory and it will build the executable.
+Simply `make` in the project directory and it will build the executable with the `g++` compiler.
 
 ## Gameplay
 Enter your moves in algebraic notation. By default the user plays for white. You can play for black by using the `--black` command-line argument. Resign with `resign`. Offer a draw with `draw`.
