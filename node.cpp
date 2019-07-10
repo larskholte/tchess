@@ -846,7 +846,6 @@ bool Node::moveCompatible(Move m, const Position &pos) {
 			pos.squareForPiece(rp) != _pos.squareForPiece(rp);
 	}
 	// If this is marked as a capture, a piece of the opposite color must have
-	// If this is marked as a capture, a piece of the opposite color must have
 	// been captured.
 	if (m.takes &&
 			_pos.numForColor(OppositeColor(_color)) !=
